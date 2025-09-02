@@ -8,6 +8,12 @@
 		<welcome-file>login.html</welcome-file>
 	</welcome-file-list>
 
+	<!-- 글로벌 파라미터 설정 -->
+	<context-param>
+		<param-name>appName</param-name>
+		<param-value>MyBoardWeb</param-value>
+	</context-param>
+
 	<!-- Servlet 클래스를 등록한다. -->
 	<servlet>
 		<servlet-name>login</servlet-name>
@@ -21,6 +27,15 @@
 	<servlet>
 		<servlet-name>getBoardList</servlet-name>
 		<servlet-class>com.multicampus.web.board.GetBoardListServlet</servlet-class>
+		<!-- 로컬 파라미터 설정 -->
+		<init-param>
+			<param-name>author</param-name>
+			<param-value>채규태</param-value>
+		</init-param>
+		<init-param>
+			<param-name>createDate</param-name>
+			<param-value>2025-09-02</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>getBoardList</servlet-name>

@@ -6,19 +6,37 @@ import java.util.List;
 
 import com.multicampus.biz.board.BoardDAO;
 import com.multicampus.biz.board.BoardVO;
-import com.multicampus.biz.user.UserDAO;
-import com.multicampus.biz.user.UserVO;
 
+import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class GetBoardListServlet extends HttpServlet {
+	
+	private String author;
+	private String createDate;
+	
+//	@Override
+//	public void init(ServletConfig config) throws ServletException {
+//		System.out.println("서블릿 작성자 : " + author);
+//		// 로컬 파라미터 정보 추출
+//		author = config.getInitParameter("author");
+//		createDate = config.getInitParameter("createDate");
+//		System.out.println("서블릿 작성자 : " + author);
+//		System.out.println("서블릿 작성일 : " + createDate);
+//	}
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("---> GetBoardListServlet 실행");
+		
+		// 글로벌 파라미터 정보 추출
+		ServletContext context = getServletContext();
+		String appName = context.getInitParameter("appName");
+		System.out.println("애플리케이션 이름 : " + appName);
 		
 		// 1. DB 연동 처리
 		BoardDAO dao = new BoardDAO();
@@ -35,7 +53,7 @@ public class GetBoardListServlet extends HttpServlet {
 		out.println("<head><title>게시글 목록</title></head>");
 		out.println("<body>");
 		out.println("<center>");
-		out.println("<h1>게시글 목록</h1>");
+		out.println("<h1>게시글 목록2</h1>");
 		out.println("<hr>");
 		
 		out.println("<table border='1' cellpadding='0' cellspacing='0' width='800'>");

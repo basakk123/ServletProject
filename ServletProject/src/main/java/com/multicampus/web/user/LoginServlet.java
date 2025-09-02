@@ -6,6 +6,7 @@ import com.multicampus.biz.user.UserDAO;
 import com.multicampus.biz.user.UserVO;
 
 import jakarta.servlet.ServletConfig;
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,6 +17,11 @@ public class LoginServlet extends HttpServlet {
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("---> LoginServlet 실행");
+		
+		// 글로벌 파라미터 정보 추출
+		ServletContext context = getServletContext();
+		String appName = context.getInitParameter("appName");
+		System.out.println("애플리케이션 이름 : " + appName);
 		
 		// 1. 사용자 입력정보 추출
 		String id = request.getParameter("id");
