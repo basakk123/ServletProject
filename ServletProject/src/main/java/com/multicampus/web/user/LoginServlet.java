@@ -40,6 +40,8 @@ public class LoginServlet extends HttpServlet {
 		if(user != null) {
 			// 로그인 성공 시, 세션에 userId 정보를 저장하고 글 목록 화면으로 이동
 			HttpSession session = request.getSession();
+			session.setMaxInactiveInterval(60 * 60 * 3);
+			
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userName", user.getName());
 			session.setAttribute("userRole", user.getRole());

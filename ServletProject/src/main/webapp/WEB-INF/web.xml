@@ -77,5 +77,15 @@
 		<servlet-name>deleteBoard</servlet-name>
 		<url-pattern>/deleteBoard.do</url-pattern>
 	</servlet-mapping>
+	
+	<!-- Filter 클래스를 등록한다. -->
+	<filter>
+		<filter-name>timeCheck</filter-name>
+		<filter-class>com.multicampus.web.common.TimeCheckFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>timeCheck</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
 
 </web-app>

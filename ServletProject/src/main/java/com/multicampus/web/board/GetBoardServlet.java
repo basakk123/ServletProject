@@ -53,6 +53,7 @@ public class GetBoardServlet extends HttpServlet {
 		out.println("<center>");
 		out.println("<h1>게시글 상세</h1>");
 		out.println("<h3>" + session.getAttribute("userName") + "님 환영합니다.</h3>");
+		out.println("<a href='logout.do'>LOGOUT</a>");
 		out.println("<hr>");
 		
 		out.println("<form action='updateBoard.do' method='get'>");
