@@ -11,6 +11,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class LoginServlet extends HttpServlet {
 		
@@ -37,7 +38,12 @@ public class LoginServlet extends HttpServlet {
 		
 		// 3. 화면 이동
 		if(user != null) {
-			// 로그인 성공 시, 글 목록 화면으로 이동
+			// 로그인 성공 시, 세션에 userId 정보를 저장하고 글 목록 화면으로 이동
+			HttpSession session = request.getSession();
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userName", user.getName());
+			session.setAttribute("userRole", user.getRole());
+			
 			response.sendRedirect("getBoardList.do");
 		} else {
 			// 로그인 실패 시, 로그인 화면으로 되돌아간다.

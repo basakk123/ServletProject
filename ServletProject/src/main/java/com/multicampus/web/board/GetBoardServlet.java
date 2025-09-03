@@ -13,12 +13,22 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class GetBoardServlet extends HttpServlet {
 
 	@Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("---> GetBoardServlet 실행");
+		
+		// 0. 세션 체크
+		// 브라우저와 매핑된 세션 객체를 획득한다.(있으면 재사용, 없으면 새롭게 생성)
+		HttpSession session = request.getSession();
+		
+		// 브라우저와 매핑된 세션에 userId 정보가 있다면 과거에 로그인을 했던 브라우저인거다.
+		if(session.getAttribute("userId") == null) {
+			response.sendRedirect("login.html");
+		} else {
 		
 		// 1. 사용자 입력정보 추출
 		String seq = request.getParameter("seq");	
@@ -42,6 +52,7 @@ public class GetBoardServlet extends HttpServlet {
 		out.println("<body>");
 		out.println("<center>");
 		out.println("<h1>게시글 상세</h1>");
+		out.println("<h3>" + session.getAttribute("userName") + "님 환영합니다.</h3>");
 		out.println("<hr>");
 		
 		out.println("<form action='updateBoard.do' method='get'>");
@@ -82,7 +93,12 @@ public class GetBoardServlet extends HttpServlet {
 		out.println("<hr>");
 
 		out.println("<a href='insertBoard.html'>글등록</a>&nbsp;&nbsp;&nbsp;");
-		out.println("<a href='deleteBoard.do?seq=" + board.getSeq() + "'>글삭제</a>&nbsp;&nbsp;&nbsp;");
+		
+		String userRole = (String) session.getAttribute("userRole");
+		if(userRole.equals("Admin")) {
+			out.println("<a href='deleteBoard.do?seq=" + board.getSeq() + "'>글삭제</a>&nbsp;&nbsp;&nbsp;");
+		}
+		
 		out.println("<a href='getBoardList.do'>글목록</a>");
 		out.println("</center>");
 		out.println("</body>");
@@ -90,8 +106,8 @@ public class GetBoardServlet extends HttpServlet {
 		
 		// 출력 스트림을 닫는다.
 		out.close();
+		}
 	}
-
 }
 
 
